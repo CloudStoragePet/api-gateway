@@ -8,21 +8,21 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins:
-#              - ${UI_ORIGIN:http://localhost:4200}
-#            allowedHeaders: "Authorization, Content-Type"
-#            allowedMethods: "GET, POST, PUT, DELETE"
-#            allowCredentials: true
+      #      globalcors:
+      #        corsConfigurations:
+      #          '[/**]':
+      #            allowedOrigins:
+      #              - ${UI_ORIGIN:http://localhost:4200}
+      #            allowedHeaders: "Authorization, Content-Type"
+      #            allowedMethods: "GET, POST, PUT, DELETE"
+      #            allowCredentials: true
       discovery.locator.enabled: true
       routes:
         - id: auth
           uri: lb://USER-SERVICE
           #          uri: ${USER_SERVICE_URL}
           predicates:
-            - Path=/api/v1/auth/**
+            - Path=/api/v1/auth/**, /api/v1/validation/**
           filters:
             - name: AuthenticationFilter
 
@@ -40,6 +40,7 @@ eureka:
     enabled: true
     service-url:
       defaultZone: ${EUREKA_URL:http://eureka-server:8761/eureka}
+
 
 
 

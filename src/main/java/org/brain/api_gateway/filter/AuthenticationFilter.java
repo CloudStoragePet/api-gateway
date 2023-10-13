@@ -38,7 +38,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         return ((exchange, chain) -> {
             log.info("Checking request - {}", exchange.getRequest().getPath());
             if (validator.isSecured.test(exchange.getRequest())) {
-                log.info("Checking request is secured - {}", exchange.getRequest().getPath());
+                log.info("Checking secured request - {}", exchange.getRequest().getPath());
                 return handleSecureRequest(exchange, chain);
             }
             log.info("Request passed - {}", exchange.getRequest().getPath());
@@ -52,12 +52,12 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             return sendValidateTokenRequest(authHeader)
                     .flatMap(response -> handleTokenValidationResponse(response, exchange, chain))
                     .onErrorResume(e -> {
-                                log.info("Token not valid in request - {}", exchange.getRequest().getPath());
+                                log.error("Token not valid in request - {}", exchange.getRequest().getPath());
                                 return onError(exchange, HttpStatus.UNAUTHORIZED);
                             }
                     );
         } else {
-            log.info("No token in AUTHORIZATION header, request - {}", exchange.getRequest().getPath());
+            log.error("No token in AUTHORIZATION header, request - {}", exchange.getRequest().getPath());
             return onError(exchange, HttpStatus.UNAUTHORIZED);
         }
     }
