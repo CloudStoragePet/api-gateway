@@ -8,14 +8,14 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      #      globalcors:
-      #        corsConfigurations:
-      #          '[/**]':
-      #            allowedOrigins:
-      #              - ${UI_ORIGIN:http://localhost:4200}
-      #            allowedHeaders: "Authorization, Content-Type"
-      #            allowedMethods: "GET, POST, PUT, DELETE"
-      #            allowCredentials: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - ${UI_ORIGIN:http://localhost:4000}
+            allowedHeaders: "Authorization, Content-Type"
+            allowedMethods: "GET, POST, PUT, DELETE, PATCH"
+            allowCredentials: true
       discovery.locator.enabled: true
       routes:
         - id: auth
