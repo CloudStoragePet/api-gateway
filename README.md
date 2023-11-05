@@ -38,6 +38,7 @@ To run the Identity Application with Docker, follow these steps:
        --build-arg EUREKA_URL=<eureka_url> \
        --build-arg AUTH_VALIDATE_TOKEN_PATH=<endpoint_to_validate_jwt> \
        --build-arg UI_ORIGIN=<frontend_url_for_cors> \
+       --build-arg MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=<your_zipkin_endpoint> \
        -t api_gateway .
 
 http://localhost:8080/swagger-ui/index.html
